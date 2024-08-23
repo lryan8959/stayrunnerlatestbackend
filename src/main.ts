@@ -14,8 +14,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  // Vercel uses port 3000 for serverless functions
-  await app.listen(3000);
+  const PORT = 3000; // Use environment variable or default to 3000
+  await app.listen(PORT);
 }
 
 bootstrap();
