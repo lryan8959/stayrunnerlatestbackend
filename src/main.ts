@@ -14,8 +14,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const PORT = 3000; // Use environment variable or default to 3000
-  await app.listen(PORT);
+  // Use default port provided by Vercel or port 3000
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
 }
 
 bootstrap();
