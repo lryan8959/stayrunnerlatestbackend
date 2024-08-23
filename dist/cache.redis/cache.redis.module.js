@@ -18,23 +18,25 @@ exports.CacheRedisModule = CacheRedisModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
             cache_manager_1.CacheModule.registerAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
                     store: await (0, cache_manager_redis_store_1.redisStore)({
                         socket: {
-                            host: configService.get('REDIS_HOST'),
-                            port: configService.get('REDIS_PORT'),
+                            host: process.env.REDIS_HOST,
+                            port: parseInt(process.env.REDIS_PORT, 10),
                         },
-                        password: configService.get('REDIS_PASSWORD'),
-                        ttl: 24 * 60 * 60 * 1000,
+                        password: process.env.REDIS_PASSWORD,
+                        ttl: 24 * 60 * 60,
                     }),
                 }),
                 inject: [config_1.ConfigService],
             }),
         ],
         exports: [cache_manager_1.CacheModule],
-        providers: [],
     })
 ], CacheRedisModule);
 //# sourceMappingURL=cache.redis.module.js.map
